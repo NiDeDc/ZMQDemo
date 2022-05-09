@@ -1,6 +1,7 @@
 import zmq
 import time
 import struct
+import threading
 from queue import Queue
 
 # 两台方案模拟
@@ -20,6 +21,9 @@ class MessagePublisher(object):
         self.socket.bind("tcp://*:{}".format(port))
         self.q = Queue(maxsize=1000)
         self.bin_file = open('data.bin', 'ab')
+        t = threading.Thread(target=self.SendThread, args=())
+        t.setDaemon(True)
+        t.start()
 
     def SendThread(self):
         while True:
