@@ -66,6 +66,7 @@ class MessagePublisher(object):
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.PUB)
         self.socket.bind("tcp://*:{}".format(port))
+        self.socket.set(zmq.SNDHWM, 1200)
         self.q = Queue(maxsize=1000)
         # self.bin_file = open('data.bin', 'ab')
 
@@ -77,6 +78,8 @@ class MessagePublisher(object):
                 try:
                     # self.bin_file.write(msg)
                     self.socket.send(msg)
+                    A = self.socket.get(zmq.RCVBUF)
+                    pass
                     # print('send')
                 except Exception as e:
                     print(e)

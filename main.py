@@ -5,6 +5,8 @@
 import time
 import struct
 
+import zmq
+
 import ZMQServer
 import threading
 from ZMQClient import MessageClient
@@ -29,6 +31,7 @@ if __name__ == '__main__':
     while True:
         msg.PackBag()
         time.sleep(0.5)
+        pass
         # for i in data:
         #     msg.Enqueue(i)
         #     print('完成发送')

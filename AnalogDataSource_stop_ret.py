@@ -33,15 +33,15 @@ car_speed = [[6, 20, 12, 13,
               random.randint(4, 20),
               random.randint(4, 20)]]
 car_id = [[1, 2, 3, 4, 9, 10, 11], [5, 6, 7, 8, 12, 13, 14, 15]]
-car_way = [[0, 0, 2, 3,
-            random.randint(0, 3),
-            random.randint(0, 3),
-            random.randint(0, 3)],
-           [4, 6, 6, 7,
-            random.randint(4, 7),
-            random.randint(4, 7),
-            random.randint(4, 7),
-            random.randint(4, 7)]]
+car_way = [[1, 1, 3, 4,
+            random.randint(1, 4),
+            random.randint(1, 4),
+            random.randint(1, 4)],
+           [5, 7, 8, 8,
+            random.randint(5, 8),
+            random.randint(5, 8),
+            random.randint(5, 8),
+            random.randint(5, 8)]]
 car_type = [[random.randint(0, 1),
              random.randint(0, 1),
              random.randint(0, 1),
@@ -120,12 +120,13 @@ def GeneratedData():
             for z in range(len(rep_num)):
                 if j != rep_num[z]:
                     if abs(cur_pos[j] - cur_pos[rep_num[z]]) < 20:
-                        if cur_way[j] != 3 and cur_way[j] != 7:
+                        if cur_way[j] != 4 and cur_way[j] != 8:
                             cur_way[j] += 1
                         else:
                             cur_way[j] -= 1
         size = len(car_pos[i])
         c_time = int(time.time() * 1000)
+        print("数据时间", c_time)
         device_b = struct.pack('BBBB', device_ip[i][0], device_ip[i][1], device_ip[i][2], device_ip[i][3])
         data_pack = struct.pack('i', cur_sn) + device_b + struct.pack('qi', c_time, size)
         cur_sn += 1
@@ -138,7 +139,7 @@ def GeneratedData():
                 car_plate = ''.join(str_list)
             car_range = [cur_pos[z], cur_pos[z]]
             car_way_ = cur_way[z]
-            if z == 2:
+            if i == 0 and z == 2:
                 if cur_pos[z] > 3000:
                     car_speed_ = 0
                 else:

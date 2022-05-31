@@ -15,7 +15,7 @@ sn = 0
 
 
 class MessageClient(object):
-    def __init__(self, ip='localhost', port='8040'):
+    def __init__(self, ip='localhost', port='8011'):
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.REQ)
         self.address = "tcp://{}:{}".format(ip, port)
@@ -134,3 +134,17 @@ class MessageClient(object):
         else:
             return self.q.get()
         # threadLock.release()
+
+if __name__ == '__main__':
+    a = MessageClient()
+    while True:
+        time.sleep(0.2)
+        try:
+            data = a.SendMsg(b'ready')
+            if data is not None:
+                size = struct.unpack('i', data)
+                print(size)
+        except Exception as e:
+            print(e)
+
+

@@ -32,16 +32,17 @@ car_speed = [[6, 20, 12, 13,
               random.randint(4, 20),
               random.randint(4, 20),
               random.randint(4, 20)]]
-car_id = [[1, 2, 3, 4, 9, 10, 11], [5, 6, 7, 8, 12, 13, 14, 15]]
-car_way = [[0, 0, 2, 3,
-            random.randint(0, 3),
-            random.randint(0, 3),
-            random.randint(0, 3)],
-           [4, 6, 6, 7,
-            random.randint(4, 7),
-            random.randint(4, 7),
-            random.randint(4, 7),
-            random.randint(4, 7)]]
+# car_id = [[1, 2, 3, 4, 9, 10, 11], [5, 6, 7, 8, 12, 13, 14, 15]]
+car_id = [[1, 2, 3, 4, 9, 10, 11], [1, 2, 3, 4, 9, 10, 11, 15]]
+car_way = [[1, 2, 3, 9,
+            1,
+            2,
+            3],
+           [2, 1, 3, 9,
+            3,
+            2,
+            1,
+            9]]
 car_type = [[random.randint(0, 1),
              random.randint(0, 1),
              random.randint(0, 1),
@@ -105,13 +106,13 @@ def GeneratedData():
                 #         cur_way[1] = 6
             a = np.array(cur_way)
             rep_num = np.where(a == cur_way[j])[0]
-            for z in range(len(rep_num)):
-                if j != rep_num[z]:
-                    if abs(cur_pos[j] - cur_pos[rep_num[z]]) < 20:
-                        if cur_way[j] != 3 and cur_way[j] != 7:
-                            cur_way[j] += 1
-                        else:
-                            cur_way[j] -= 1
+            # for z in range(len(rep_num)):
+            #     if j != rep_num[z]:
+            #         if abs(cur_pos[j] - cur_pos[rep_num[z]]) < 20:
+            #             if cur_way[j] != 3 and cur_way[j] != 7:
+            #                 cur_way[j] += 1
+            #             else:
+            #                 cur_way[j] -= 1
         size = len(car_pos[i])
         c_time = int(time.time() * 1000)
         device_b = struct.pack('BBBB', device_ip[i][0], device_ip[i][1], device_ip[i][2], device_ip[i][3])
@@ -152,6 +153,10 @@ def GeneratedData():
 
 
 if __name__ == '__main__':
+    a = struct.pack('f', 50.1)[0]
+    b = struct.pack('f', 50.1)[1]
+    c = struct.pack('f', 50.1)[2]
+    d = struct.pack('f', 50.1)[3]
     t_1.start()
     t_2.start()
     while True:
